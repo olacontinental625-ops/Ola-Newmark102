@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import os from 'os';
 import fs from 'fs';
 import crypto from 'crypto';
+import zlib from 'zlib';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 
@@ -1435,6 +1436,163 @@ app.delete('/api/hero-video', (req, res) => {
   } catch (err) {
     console.error('Error resetting hero video:', err);
     res.status(500).json({ error: 'Failed to reset video' });
+  }
+});
+
+// Full project source ZIP export (strictly excludes secrets, session keys, uploads, and customer PII)
+const EXCLUDED_ZIP_TOP_DIRS = new Set([
+  'node_modules',
+  '.git',
+  '.aistudio',
+  'workspace',
+  'coverage',
+  '.next',
+]);
+
+const EXCLUDED_ZIP_PATHS = new Set([
+  'data/admin-auth.json',
+  'data/session-secret.key',
+  'data/customers.json',
+  'data/leads.json',
+  'data/viewings.json',
+  'data/contacts.json',
+  'data/hero-video.json',
+  'data/uploads',
+]);
+
+function shouldExcludeFromZip(relPosixPath: string): boolean {
+  const parts = relPosixPath.split('/');
+  if (parts.some((seg) => EXCLUDED_ZIP_TOP_DIRS.has(seg))) return true;
+  const baseName = parts[parts.length - 1] || '';
+  if (baseName.startsWith('.env') && baseName !== '.env.example') return true;
+  if (baseName === '.DS_Store' || baseName.endsWith('.log') || baseName.endsWith('.zip') || baseName.endsWith('.tar.gz') || baseName.endsWith('.tgz')) {
+    return true;
+  }
+  for (const blocked of EXCLUDED_ZIP_PATHS) {
+    if (relPosixPath === blocked || relPosixPath.startsWith(`${blocked}/`)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function toDosDateTime(date: Date): { dosTime: number; dosDate: number } {
+  const year = Math.max(1980, date.getFullYear());
+  const dosTime =
+    ((date.getHours() & 0x1f) << 11) |
+    ((date.getMinutes() & 0x3f) << 5) |
+    ((date.getSeconds() >> 1) & 0x1f);
+  const dosDate =
+    (((year - 1980) & 0x7f) << 9) |
+    (((date.getMonth() + 1) & 0x0f) << 5) |
+    (date.getDate() & 0x1f);
+  return { dosTime, dosDate };
+}
+
+function buildProjectZipBuffer(rootDir: string): { buffer: Buffer; fileCount: number } {
+  const localParts: Buffer[] = [];
+  const centralParts: Buffer[] = [];
+  let offset = 0;
+  let fileCount = 0;
+
+  const walk = (currentDir: string, relDir: string) => {
+    const dirEntries = fs.readdirSync(currentDir, { withFileTypes: true });
+    dirEntries.sort((a, b) => a.name.localeCompare(b.name));
+
+    for (const entry of dirEntries) {
+      if (entry.isSymbolicLink()) continue;
+      const relPosix = relDir ? `${relDir}/${entry.name}` : entry.name;
+      if (shouldExcludeFromZip(relPosix)) continue;
+
+      const fullPath = path.join(currentDir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath, relPosix);
+        continue;
+      }
+      if (!entry.isFile()) continue;
+
+      const stat = fs.statSync(fullPath);
+      const rawData = fs.readFileSync(fullPath);
+      const deflated = zlib.deflateRawSync(rawData, { level: 6 });
+      const useDeflate = deflated.length < rawData.length;
+      const payload = useDeflate ? deflated : rawData;
+      const method = useDeflate ? 8 : 0;
+      const crc = zlib.crc32(rawData) >>> 0;
+      const { dosTime, dosDate } = toDosDateTime(stat.mtime);
+      const nameBuf = Buffer.from(relPosix, 'utf8');
+
+      // Local File Header (30 bytes + filename)
+      const localHeader = Buffer.alloc(30);
+      localHeader.writeUInt32LE(0x04034b50, 0);
+      localHeader.writeUInt16LE(20, 4);
+      localHeader.writeUInt16LE(0x0800, 6);
+      localHeader.writeUInt16LE(method, 8);
+      localHeader.writeUInt16LE(dosTime, 10);
+      localHeader.writeUInt16LE(dosDate, 12);
+      localHeader.writeUInt32LE(crc, 14);
+      localHeader.writeUInt32LE(payload.length, 18);
+      localHeader.writeUInt32LE(rawData.length, 22);
+      localHeader.writeUInt16LE(nameBuf.length, 26);
+      localHeader.writeUInt16LE(0, 28);
+
+      // Central Directory Header (46 bytes + filename)
+      const centralHeader = Buffer.alloc(46);
+      centralHeader.writeUInt32LE(0x02014b50, 0);
+      centralHeader.writeUInt16LE(20, 4);
+      centralHeader.writeUInt16LE(20, 6);
+      centralHeader.writeUInt16LE(0x0800, 8);
+      centralHeader.writeUInt16LE(method, 10);
+      centralHeader.writeUInt16LE(dosTime, 12);
+      centralHeader.writeUInt16LE(dosDate, 14);
+      centralHeader.writeUInt32LE(crc, 16);
+      centralHeader.writeUInt32LE(payload.length, 20);
+      centralHeader.writeUInt32LE(rawData.length, 24);
+      centralHeader.writeUInt16LE(nameBuf.length, 28);
+      centralHeader.writeUInt16LE(0, 30);
+      centralHeader.writeUInt16LE(0, 32);
+      centralHeader.writeUInt16LE(0, 34);
+      centralHeader.writeUInt16LE(0, 36);
+      centralHeader.writeUInt32LE(0, 38);
+      centralHeader.writeUInt32LE(offset, 42);
+
+      localParts.push(localHeader, nameBuf, payload);
+      centralParts.push(centralHeader, nameBuf);
+
+      offset += localHeader.length + nameBuf.length + payload.length;
+      fileCount += 1;
+    }
+  };
+
+  walk(rootDir, '');
+
+  const centralBuffer = Buffer.concat(centralParts);
+  const eocd = Buffer.alloc(22);
+  eocd.writeUInt32LE(0x06054b50, 0);
+  eocd.writeUInt16LE(0, 4);
+  eocd.writeUInt16LE(0, 6);
+  eocd.writeUInt16LE(fileCount & 0xffff, 8);
+  eocd.writeUInt16LE(fileCount & 0xffff, 10);
+  eocd.writeUInt32LE(centralBuffer.length, 12);
+  eocd.writeUInt32LE(offset, 16);
+  eocd.writeUInt16LE(0, 20);
+
+  return {
+    buffer: Buffer.concat([...localParts, centralBuffer, eocd]),
+    fileCount,
+  };
+}
+
+app.get('/api/download/full-project.zip', (_req, res) => {
+  try {
+    const { buffer } = buildProjectZipBuffer(__dirname);
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', 'attachment; filename="ola-continental-full-project.zip"');
+    res.setHeader('Content-Length', String(buffer.length));
+    res.setHeader('Cache-Control', 'no-store');
+    res.send(buffer);
+  } catch (err) {
+    console.error('Error building full project zip:', err);
+    res.status(500).json({ error: 'Failed to generate project ZIP archive' });
   }
 });
 
