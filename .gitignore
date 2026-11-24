@@ -1,0 +1,17 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+data/session-secret.key
+data/customers.json
+data/leads.json
+data/viewings.json
+data/contacts.json
+data/uploads/*
+hostinger_full_project_source.zip
+hostinger_website_backup.zip
+hostinger_website_backup.tar.gz
