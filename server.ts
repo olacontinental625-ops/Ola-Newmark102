@@ -1439,9 +1439,10 @@ app.delete('/api/hero-video', (req, res) => {
   }
 });
 
-// Full project source ZIP export (strictly excludes secrets, session keys, uploads, and customer PII)
+// Full project source ZIP export (strictly excludes dist/, node_modules/, secrets, session keys, uploads, and customer PII so size stays under 15 MB)
 const EXCLUDED_ZIP_TOP_DIRS = new Set([
   'node_modules',
+  'dist',
   '.git',
   '.aistudio',
   'workspace',
@@ -1458,17 +1459,20 @@ const EXCLUDED_ZIP_PATHS = new Set([
   'data/contacts.json',
   'data/hero-video.json',
   'data/uploads',
+  'public/assets/aistudio/119290-717347154_medium_e5c6947a.mp4',
+  'public/assets/aistudio/IMG-20261021-WA0023_f5b1e92c.jpg',
+  'public/assets/aistudio/230_9b05a5c0.PNG',
 ]);
 
-function shouldExcludeFromZip(relPosixPath: string): boolean {
+function shouldExcludeFromZip(relPosixPath: string, excludeTopDirs: Set<string>, excludePaths: Set<string>): boolean {
   const parts = relPosixPath.split('/');
-  if (parts.some((seg) => EXCLUDED_ZIP_TOP_DIRS.has(seg))) return true;
+  if (parts.some((seg) => excludeTopDirs.has(seg))) return true;
   const baseName = parts[parts.length - 1] || '';
   if (baseName.startsWith('.env') && baseName !== '.env.example') return true;
   if (baseName === '.DS_Store' || baseName.endsWith('.log') || baseName.endsWith('.zip') || baseName.endsWith('.tar.gz') || baseName.endsWith('.tgz')) {
     return true;
   }
-  for (const blocked of EXCLUDED_ZIP_PATHS) {
+  for (const blocked of excludePaths) {
     if (relPosixPath === blocked || relPosixPath.startsWith(`${blocked}/`)) {
       return true;
     }
@@ -1489,7 +1493,11 @@ function toDosDateTime(date: Date): { dosTime: number; dosDate: number } {
   return { dosTime, dosDate };
 }
 
-function buildProjectZipBuffer(rootDir: string): { buffer: Buffer; fileCount: number } {
+function buildZipBufferFromDir(
+  rootDir: string,
+  excludeTopDirs: Set<string>,
+  excludePaths: Set<string>
+): { buffer: Buffer; fileCount: number } {
   const localParts: Buffer[] = [];
   const centralParts: Buffer[] = [];
   let offset = 0;
@@ -1502,7 +1510,7 @@ function buildProjectZipBuffer(rootDir: string): { buffer: Buffer; fileCount: nu
     for (const entry of dirEntries) {
       if (entry.isSymbolicLink()) continue;
       const relPosix = relDir ? `${relDir}/${entry.name}` : entry.name;
-      if (shouldExcludeFromZip(relPosix)) continue;
+      if (shouldExcludeFromZip(relPosix, excludeTopDirs, excludePaths)) continue;
 
       const fullPath = path.join(currentDir, entry.name);
       if (entry.isDirectory()) {
@@ -1513,7 +1521,7 @@ function buildProjectZipBuffer(rootDir: string): { buffer: Buffer; fileCount: nu
 
       const stat = fs.statSync(fullPath);
       const rawData = fs.readFileSync(fullPath);
-      const deflated = zlib.deflateRawSync(rawData, { level: 6 });
+      const deflated = zlib.deflateRawSync(rawData, { level: 9 });
       const useDeflate = deflated.length < rawData.length;
       const payload = useDeflate ? deflated : rawData;
       const method = useDeflate ? 8 : 0;
@@ -1584,7 +1592,7 @@ function buildProjectZipBuffer(rootDir: string): { buffer: Buffer; fileCount: nu
 
 app.get('/api/download/full-project.zip', (_req, res) => {
   try {
-    const { buffer } = buildProjectZipBuffer(__dirname);
+    const { buffer } = buildZipBufferFromDir(__dirname, EXCLUDED_ZIP_TOP_DIRS, EXCLUDED_ZIP_PATHS);
     res.setHeader('Content-Type', 'application/zip');
     res.setHeader('Content-Disposition', 'attachment; filename="ola-continental-full-project.zip"');
     res.setHeader('Content-Length', String(buffer.length));
@@ -1593,6 +1601,30 @@ app.get('/api/download/full-project.zip', (_req, res) => {
   } catch (err) {
     console.error('Error building full project zip:', err);
     res.status(500).json({ error: 'Failed to generate project ZIP archive' });
+  }
+});
+
+// Built production static website backup ZIP (dist/ at ZIP root — compatible with Hostinger "Upload your website backups")
+app.get('/api/download/website-backup.zip', (_req, res) => {
+  try {
+    const distDir = path.resolve(__dirname, 'dist');
+    if (!fs.existsSync(path.join(distDir, 'index.html'))) {
+      return res.status(404).json({ error: 'Built website dist/ folder not found. Run npm run build first.' });
+    }
+    const excludedDistPaths = new Set([
+      'assets/aistudio/119290-717347154_medium_e5c6947a.mp4',
+      'assets/aistudio/IMG-20261021-WA0023_f5b1e92c.jpg',
+      'assets/aistudio/230_9b05a5c0.PNG',
+    ]);
+    const { buffer } = buildZipBufferFromDir(distDir, new Set(), excludedDistPaths);
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', 'attachment; filename="ola-continental-website-backup.zip"');
+    res.setHeader('Content-Length', String(buffer.length));
+    res.setHeader('Cache-Control', 'no-store');
+    res.send(buffer);
+  } catch (err) {
+    console.error('Error building website backup zip:', err);
+    res.status(500).json({ error: 'Failed to generate website backup ZIP archive' });
   }
 });
 

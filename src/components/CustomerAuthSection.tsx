@@ -216,6 +216,23 @@ export const CustomerAuthSection: React.FC<CustomerAuthSectionProps> = ({
               </p>
             </div>
 
+            <div className="grid grid-cols-2 gap-3 pt-1">
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden border border-[#1d4ed8]/40 bg-[#040b19]">
+                <img
+                  src="/assets/aistudio/907264287466848862_5d01df1c.jpg"
+                  alt="Contemporary Turnkey Duplex — Ola Continental Properties"
+                  className="w-full h-full object-cover object-[50%_65%]"
+                />
+              </div>
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden border border-[#1d4ed8]/40 bg-[#040b19]">
+                <img
+                  src="/assets/aistudio/Real_Estate_flyer_design_background_a74e8250.jpg"
+                  alt="Modern Glass-Balcony Executive Residence — Ola Continental Properties"
+                  className="w-full h-full object-cover object-[50%_60%]"
+                />
+              </div>
+            </div>
+
             <div className="space-y-3 pt-2 border-t border-[#1d4ed8]/30 text-xs">
               <div className="flex items-start gap-2.5 text-[#e0f2fe]">
                 <ShieldCheck className="w-4 h-4 text-[#4ade80] shrink-0 mt-0.5" />

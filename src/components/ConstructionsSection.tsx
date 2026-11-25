@@ -184,22 +184,40 @@ export const CONSTRUCTION_PROJECTS: ConstructionProjectItem[] = [
 
   // ================= FINISHED PROPERTIES =================
   {
-    id: 'finished-ola-headquarters',
-    image: '/assets/aistudio/910713664_1455940486721545_188622865862031933_n_c003821d.jpg',
-    title: 'Ola Continental Corporate Headquarters Building',
+    id: 'finished-contemporary-stone-duplex',
+    image: '/assets/aistudio/907264287466848862_5d01df1c.jpg',
+    title: 'Contemporary 4-Bedroom Stone-Clad Luxury Duplex',
     status: 'finished',
     statusLabel: 'Finished Property',
     completionPercent: 100,
-    phase: 'Completed Two-Storey Neoclassical Complex',
-    location: 'No. 2 Olukoko St., Behind LAUTECH Hospital',
+    phase: 'Completed Turnkey Contemporary Residence',
+    location: 'Olukoko & Under G Executive Enclave, Ogbomoso',
     description:
-      'Signature brick-clad two-storey headquarters featuring monumental fluted columns, stepped gable roof, aluminum casement glazing, and paved perimeter forecourt.',
+      'Turnkey finished modern duplex featuring stacked natural stone cladding, stainless-steel glass balcony railings, recessed fascia spotlights, and an expansive paved courtyard.',
     specs: [
-      'Reinforced Two-Storey Brick & Column Frame',
-      'Long-Span Insulated Metal Roofing',
-      'Operational Brokerage & Engineering Landmark',
+      'Natural Stacked Stone Column Cladding',
+      'Tempered Glass & Stainless Balcony Railings',
+      'Heavy-Duty Interlocked Courtyard & Security Doors',
     ],
     leadEngineer: 'Engr. Samuel Aleji (Principal Architect & Builder)',
+  },
+  {
+    id: 'finished-glass-balcony-duplex',
+    image: '/assets/aistudio/Real_Estate_flyer_design_background_a74e8250.jpg',
+    title: 'Modern Glass-Balcony Executive Residence & Forecourt',
+    status: 'finished',
+    statusLabel: 'Finished Property',
+    completionPercent: 100,
+    phase: 'Completed Turnkey Architectural Delivery',
+    location: 'Behind LAUTECH Teaching Hospital Axis, Ogbomoso',
+    description:
+      'Finished contemporary two-storey detached villa showcasing cantilevered upper balcony overhangs, tinted sliding glazing, perimeter security walling, and solar-ready electrical conduits.',
+    specs: [
+      'Cantilevered Reinforced Concrete Slab Overhang',
+      'Thermal-Tinted Aluminum Sliding Windows',
+      'Complete Borehole, Drain & Paved Compound Works',
+    ],
+    leadEngineer: 'Ola Continental Architectural Division',
   },
   {
     id: 'finished-grand-olukoko-duplex',
@@ -603,22 +621,22 @@ export const ConstructionsSection: React.FC<ConstructionsSectionProps> = ({
               </div>
             </div>
 
-            {/* Authentic Headquarters Building Visual */}
+            {/* Signature Contemporary Finished Residence Visual */}
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border border-[#38bdf8]/40 shadow-2xl bg-[#040b19]">
                 <img
-                  src="/assets/aistudio/910713664_1455940486721545_188622865862031933_n_c003821d.jpg"
-                  alt="Ola Continental Properties & Associate Corporate Headquarters Building"
+                  src="/assets/aistudio/Real_Estate_flyer_design_background_a74e8250.jpg"
+                  alt="Contemporary Turnkey Executive Duplex Built by Ola Continental Properties & Associates"
                   referrerPolicy="no-referrer"
-                  className="w-full h-72 sm:h-80 object-cover"
+                  className="w-full h-72 sm:h-80 object-cover object-[50%_60%]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#040b19] via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3 bg-[#07132b]/90 backdrop-blur-md border border-[#1d4ed8]/50 rounded-xl p-3">
                   <div className="text-xs font-bold text-white">
-                    Ola Continental Corporate Headquarters
+                    Turnkey Contemporary Executive Duplex
                   </div>
                   <div className="text-[11px] text-[#93c5fd]">
-                    No. 2 Olukoko St., Behind LAUTECH Teaching Hospital, Ogbomoso
+                    Built &amp; Handed Over by Ola Continental Engineering Division
                   </div>
                 </div>
               </div>

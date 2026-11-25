@@ -144,41 +144,51 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
         {/* 3-Column Executive Contact Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {/* Card 1: Executive Desk */}
-          <div className="bg-[#0b1e42] border border-[#1d4ed8]/30 hover:border-[#38bdf8]/60 rounded-2xl p-7 transition-all duration-300 shadow-xl flex flex-col justify-between">
+          <div className="bg-[#0b1e42] border border-[#1d4ed8]/30 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-[10px] font-bold tracking-widest uppercase text-[#38bdf8] bg-[#1d4ed8]/20 px-2.5 py-1 rounded-md border border-[#38bdf8]/30">
-                  Principal Desk
-                </span>
-                <Phone className="w-5 h-5 text-[#38bdf8]" />
+              <div className="relative aspect-[16/9] bg-[#040b19] overflow-hidden">
+                <img
+                  src="/assets/aistudio/file_00000000ec80821182da150a7f2f7169_-_Copy_5a663f39.png"
+                  alt="Engineer Samuel Aleji — Principal Consultant"
+                  className="w-full h-full object-cover object-top"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1e42] via-transparent to-black/20" />
               </div>
-              <h3 className="font-display text-xl font-bold text-white mb-1">
-                Engr. Samuel Aleji
-              </h3>
-              <p className="text-xs text-[#93c5fd] mb-4">
-                Founder, Principal Consultant & Chief Civil Engineer
-              </p>
-              <div className="space-y-2 text-xs text-[#e0f2fe]">
-                <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-[#25D366] shrink-0" />
-                  <a href="tel:+2348033848107" className="font-data font-semibold hover:text-[#38bdf8] transition-colors">
-                    +234 803 384 8107
-                  </a>
+              <div className="p-7 pt-5">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[10px] font-bold tracking-widest uppercase text-[#38bdf8] bg-[#1d4ed8]/20 px-2.5 py-1 rounded-md border border-[#38bdf8]/30">
+                    Principal Desk
+                  </span>
+                  <Phone className="w-5 h-5 text-[#38bdf8]" />
                 </div>
-                <div className="flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4 text-[#25D366] shrink-0" />
-                  <a href={whatsappDirectUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#25D366] hover:underline">
-                    WhatsApp 0803 384 8107
-                  </a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-[#38bdf8] shrink-0" />
-                  <span className="font-data text-[11px] text-[#bfdbfe]">olacontinental625@gmail.com</span>
+                <h3 className="font-display text-xl font-bold text-white mb-1">
+                  Engr. Samuel Aleji
+                </h3>
+                <p className="text-xs text-[#93c5fd] mb-4">
+                  Founder, Principal Consultant &amp; Chief Civil Engineer
+                </p>
+                <div className="space-y-2 text-xs text-[#e0f2fe]">
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-[#25D366] shrink-0" />
+                    <a href="tel:+2348033848107" className="font-data font-semibold hover:text-[#38bdf8] transition-colors">
+                      +234 803 384 8107
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MessageSquare className="w-4 h-4 text-[#25D366] shrink-0" />
+                    <a href={whatsappDirectUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#25D366] hover:underline">
+                      WhatsApp 0803 384 8107
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-[#38bdf8] shrink-0" />
+                    <span className="font-data text-[11px] text-[#bfdbfe]">olacontinental625@gmail.com</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="pt-6 mt-6 border-t border-[#1d4ed8]/30">
+            <div className="px-7 pb-7 pt-5 border-t border-[#1d4ed8]/30">
               <a
                 href={whatsappDirectUrl}
                 target="_blank"
@@ -192,36 +202,46 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
 
           {/* Card 2: Ogbomoso Headquarters Landmark */}
-          <div className="bg-[#0b1e42] border border-[#1d4ed8]/30 hover:border-[#38bdf8]/60 rounded-2xl p-7 transition-all duration-300 shadow-xl flex flex-col justify-between">
+          <div className="bg-[#0b1e42] border border-[#1d4ed8]/30 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-[10px] font-bold tracking-widest uppercase text-[#60a5fa] bg-[#1d4ed8]/20 px-2.5 py-1 rounded-md border border-[#60a5fa]/30">
-                  Headquarters
-                </span>
-                <MapPin className="w-5 h-5 text-[#38bdf8]" />
+              <div className="relative aspect-[16/9] bg-[#040b19] overflow-hidden">
+                <img
+                  src="/assets/aistudio/910713664_1455940486721545_188622865862031933_n_c003821d.jpg"
+                  alt="Ola Continental Properties & Associates Corporate Headquarters Building"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1e42] via-transparent to-black/20" />
               </div>
-              <h3 className="font-display text-xl font-bold text-white mb-1">
-                Ogbomoso Landmark
-              </h3>
-              <p className="text-xs text-[#93c5fd] mb-3">
-                Behind LAUTECH Teaching Hospital
-              </p>
-              <div className="space-y-2 text-xs text-[#e0f2fe]">
-                <p className="leading-relaxed text-xs text-[#bfdbfe]">
-                  No. 2, Olukoko Street,<br />
-                  Behind LAUTECH Teaching Hospital,<br />
-                  Ogbomoso, Oyo State, Nigeria
-                </p>
-                <div className="text-[11px] text-[#38bdf8] font-data pt-1">
-                  Plus Code: 47X3+F5 Ogbomoso
+              <div className="p-7 pt-5">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[10px] font-bold tracking-widest uppercase text-[#60a5fa] bg-[#1d4ed8]/20 px-2.5 py-1 rounded-md border border-[#60a5fa]/30">
+                    Headquarters
+                  </span>
+                  <MapPin className="w-5 h-5 text-[#38bdf8]" />
                 </div>
-                <div className="pt-2 text-[11px] text-[#bfdbfe]">
-                  <strong>Inspection Day:</strong> Every Tuesday dedicated on-site walkthrough with GPS total stations.
+                <h3 className="font-display text-xl font-bold text-white mb-1">
+                  Ogbomoso Landmark
+                </h3>
+                <p className="text-xs text-[#93c5fd] mb-3">
+                  Behind LAUTECH Teaching Hospital
+                </p>
+                <div className="space-y-2 text-xs text-[#e0f2fe]">
+                  <p className="leading-relaxed text-xs text-[#bfdbfe]">
+                    No. 2, Olukoko Street,<br />
+                    Behind LAUTECH Teaching Hospital,<br />
+                    Ogbomoso, Oyo State, Nigeria
+                  </p>
+                  <div className="text-[11px] text-[#38bdf8] font-data pt-1">
+                    Plus Code: 47X3+F5 Ogbomoso
+                  </div>
+                  <div className="pt-2 text-[11px] text-[#bfdbfe]">
+                    <strong>Inspection Day:</strong> Every Tuesday dedicated on-site walkthrough with GPS total stations.
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="pt-6 mt-6 border-t border-[#1d4ed8]/30">
+            <div className="px-7 pb-7 pt-5 border-t border-[#1d4ed8]/30">
               <button
                 onClick={onOpenViewing}
                 className="w-full py-2.5 px-4 bg-[#1d4ed8] hover:bg-[#0284c7] text-white text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
@@ -233,41 +253,51 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
 
           {/* Card 3: Building & Civil Construction Division */}
-          <div className="bg-[#0b1e42] border border-[#1d4ed8]/30 hover:border-[#38bdf8]/60 rounded-2xl p-7 transition-all duration-300 shadow-xl flex flex-col justify-between">
+          <div className="bg-[#0b1e42] border border-[#1d4ed8]/30 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-[10px] font-bold tracking-widest uppercase text-[#38bdf8] bg-[#1d4ed8]/20 px-2.5 py-1 rounded-md border border-[#38bdf8]/30">
-                  Engineering Division
-                </span>
-                <HardHat className="w-5 h-5 text-[#38bdf8]" />
+              <div className="relative aspect-[16/9] bg-[#040b19] overflow-hidden">
+                <img
+                  src="/assets/aistudio/907264287466848862_5d01df1c.jpg"
+                  alt="Contemporary Turnkey Residence by Ola Continental Construction Division"
+                  className="w-full h-full object-cover object-[50%_65%]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1e42] via-transparent to-black/20" />
               </div>
-              <h3 className="font-display text-xl font-bold text-white mb-1">
-                Building & Construction
-              </h3>
-              <p className="text-xs text-[#93c5fd] mb-3">
-                Civil Contracts, Hostels & Factories
-              </p>
-              <div className="space-y-1.5 text-xs text-[#e0f2fe]">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span>Architectural & Structural Drawings</span>
+              <div className="p-7 pt-5">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[10px] font-bold tracking-widest uppercase text-[#38bdf8] bg-[#1d4ed8]/20 px-2.5 py-1 rounded-md border border-[#38bdf8]/30">
+                    Engineering Division
+                  </span>
+                  <HardHat className="w-5 h-5 text-[#38bdf8]" />
                 </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span>LAUTECH Multi-Unit Hostels</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span>Industrial Warehouse & Agro Plants</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span>Lagos Mushin Commercial Works</span>
+                <h3 className="font-display text-xl font-bold text-white mb-1">
+                  Building &amp; Construction
+                </h3>
+                <p className="text-xs text-[#93c5fd] mb-3">
+                  Civil Contracts, Hostels &amp; Factories
+                </p>
+                <div className="space-y-1.5 text-xs text-[#e0f2fe]">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#38bdf8]" />
+                    <span>Architectural &amp; Structural Drawings</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#38bdf8]" />
+                    <span>LAUTECH Multi-Unit Hostels</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#38bdf8]" />
+                    <span>Industrial Warehouse &amp; Agro Plants</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#38bdf8]" />
+                    <span>Lagos Mushin Commercial Works</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="pt-6 mt-6 border-t border-[#1d4ed8]/30">
+            <div className="px-7 pb-7 pt-5 border-t border-[#1d4ed8]/30">
               <button
                 onClick={onOpenChat}
                 className="w-full py-2.5 px-4 bg-[#0c2a63] hover:bg-[#113e94] border border-[#38bdf8]/40 text-[#e0f2fe] hover:text-white text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"

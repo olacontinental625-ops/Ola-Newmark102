@@ -316,25 +316,46 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
       <div className="absolute bottom-1/3 left-10 w-[450px] h-[450px] bg-[#38bdf8]/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="max-w-3xl mb-14">
-          <div className="mb-5">
-            <OlaLogoMark variant="section" />
+        {/* Section Header + Corporate Headquarters Visual */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-14">
+          <div className="lg:col-span-7">
+            <div className="mb-5">
+              <OlaLogoMark variant="section" />
+            </div>
+
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-widest uppercase text-[#38bdf8] mb-3">
+              <span>ABOUT US · OLA CONTINENTAL PROPERTIES &amp; CIVIL CONSTRUCTION</span>
+              <span aria-hidden="true" className="text-white/40">·</span>
+              <span className="font-data text-xs text-[#93c5fd]/80">ESTABLISHED 2006</span>
+            </div>
+
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+              About Us: Operating Continuously Since 2006.
+            </h1>
+
+            <p className="mt-4 text-base sm:text-lg text-[#bfdbfe] leading-relaxed font-normal">
+              For over 19 unbroken years, Ola Continental has stood as the gold standard of transparent property brokerage, civil engineering design, turnkey building construction, and cadastral survey intelligence across Ogbomoso and Lagos State corridors.
+            </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-widest uppercase text-[#38bdf8] mb-3">
-            <span>ABOUT US · OLA CONTINENTAL PROPERTIES &amp; CIVIL CONSTRUCTION</span>
-            <span aria-hidden="true" className="text-white/40">·</span>
-            <span className="font-data text-xs text-[#93c5fd]/80">ESTABLISHED 2006</span>
+          <div className="lg:col-span-5">
+            <div className="relative rounded-2xl overflow-hidden border border-[#38bdf8]/40 shadow-2xl bg-[#040b19]">
+              <img
+                src="/assets/aistudio/910713664_1455940486721545_188622865862031933_n_c003821d.jpg"
+                alt="Ola Continental Properties & Associates Corporate Headquarters"
+                className="w-full h-64 sm:h-72 object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#040b19] via-transparent to-transparent" />
+              <div className="absolute bottom-3 left-3 right-3 bg-[#07132b]/90 backdrop-blur-md border border-[#1d4ed8]/50 rounded-xl p-3">
+                <div className="text-xs font-bold text-white">
+                  Ola Continental Corporate Headquarters
+                </div>
+                <div className="text-[11px] text-[#93c5fd]">
+                  No. 2 Olukoko St., Behind LAUTECH Teaching Hospital, Ogbomoso
+                </div>
+              </div>
+            </div>
           </div>
-
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
-            About Us: Operating Continuously Since 2006.
-          </h1>
-
-          <p className="mt-4 text-base sm:text-lg text-[#bfdbfe] leading-relaxed font-normal">
-            For over 19 unbroken years, Ola Continental has stood as the gold standard of transparent property brokerage, civil engineering design, turnkey building construction, and cadastral survey intelligence across Ogbomoso and Lagos State corridors.
-          </p>
         </div>
 
         {/* =========================================================================
@@ -977,42 +998,72 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-[#0b1e42] p-7 rounded-2xl border border-[#1d4ed8]/40 hover:border-[#38bdf8]/60 transition-all space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#07132b] border border-[#38bdf8]/40 flex items-center justify-center text-[#38bdf8]">
-                <Building className="w-5 h-5" />
+            <div className="bg-[#0b1e42] rounded-2xl overflow-hidden border border-[#1d4ed8]/40 hover:border-[#38bdf8]/60 transition-all flex flex-col">
+              <div className="relative aspect-[16/9] bg-[#040b19] overflow-hidden">
+                <img
+                  src="/assets/aistudio/907264287466848862_5d01df1c.jpg"
+                  alt="Residential Turnkey Homes Built by Ola Continental"
+                  className="w-full h-full object-cover object-[50%_65%]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1e42] via-transparent to-transparent" />
               </div>
-              <h4 className="font-display text-xl font-bold text-white">Residential Turnkey Homes</h4>
-              <p className="text-xs text-[#bfdbfe] leading-relaxed">
-                Design and construction of modern 3-to-5 bedroom executive bungalows and duplexes with stamped concrete driveways, perimeter fences, POP ceilings, and automated boreholes.
-              </p>
-              <div className="text-[11px] text-[#38bdf8] font-semibold pt-1">
-                From Soil Testing to Key Handover &rarr;
-              </div>
-            </div>
-
-            <div className="bg-[#0b1e42] p-7 rounded-2xl border border-[#1d4ed8]/40 hover:border-[#38bdf8]/60 transition-all space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#07132b] border border-[#38bdf8]/40 flex items-center justify-center text-[#38bdf8]">
-                <HardHat className="w-5 h-5" />
-              </div>
-              <h4 className="font-display text-xl font-bold text-white">Student Accommodation Hostels</h4>
-              <p className="text-xs text-[#bfdbfe] leading-relaxed">
-                Purpose-built multi-storey hostels engineered specifically for LAUTECH student tenant demand, with individual submeters, water storage towers, and resident security lodges.
-              </p>
-              <div className="text-[11px] text-[#38bdf8] font-semibold pt-1">
-                14% – 18% Annual Rental Cashflow &rarr;
+              <div className="p-7 pt-4 space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#07132b] border border-[#38bdf8]/40 flex items-center justify-center text-[#38bdf8]">
+                  <Building className="w-5 h-5" />
+                </div>
+                <h4 className="font-display text-xl font-bold text-white">Residential Turnkey Homes</h4>
+                <p className="text-xs text-[#bfdbfe] leading-relaxed">
+                  Design and construction of modern 3-to-5 bedroom executive bungalows and duplexes with stamped concrete driveways, perimeter fences, POP ceilings, and automated boreholes.
+                </p>
+                <div className="text-[11px] text-[#38bdf8] font-semibold pt-1">
+                  From Soil Testing to Key Handover &rarr;
+                </div>
               </div>
             </div>
 
-            <div className="bg-[#0b1e42] p-7 rounded-2xl border border-[#1d4ed8]/40 hover:border-[#38bdf8]/60 transition-all space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#07132b] border border-[#38bdf8]/40 flex items-center justify-center text-[#38bdf8]">
-                <Factory className="w-5 h-5" />
+            <div className="bg-[#0b1e42] rounded-2xl overflow-hidden border border-[#1d4ed8]/40 hover:border-[#38bdf8]/60 transition-all flex flex-col">
+              <div className="relative aspect-[16/9] bg-[#040b19] overflow-hidden">
+                <img
+                  src="/assets/aistudio/IMG-20261021-WA0038_61f97529.jpg"
+                  alt="LAUTECH Student Accommodation Hostels"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1e42] via-transparent to-transparent" />
               </div>
-              <h4 className="font-display text-xl font-bold text-white">Commercial & Industrial Facilities</h4>
-              <p className="text-xs text-[#bfdbfe] leading-relaxed">
-                Heavy industrial warehouse construction, commercial shopping plazas, agro-processing factory setups, and expressway logistics depots with reinforced foundation beds.
-              </p>
-              <div className="text-[11px] text-[#38bdf8] font-semibold pt-1">
-                Heavy Load Capacities & Structural Steel &rarr;
+              <div className="p-7 pt-4 space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#07132b] border border-[#38bdf8]/40 flex items-center justify-center text-[#38bdf8]">
+                  <HardHat className="w-5 h-5" />
+                </div>
+                <h4 className="font-display text-xl font-bold text-white">Student Accommodation Hostels</h4>
+                <p className="text-xs text-[#bfdbfe] leading-relaxed">
+                  Purpose-built multi-storey hostels engineered specifically for LAUTECH student tenant demand, with individual submeters, water storage towers, and resident security lodges.
+                </p>
+                <div className="text-[11px] text-[#38bdf8] font-semibold pt-1">
+                  14% – 18% Annual Rental Cashflow &rarr;
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-[#0b1e42] rounded-2xl overflow-hidden border border-[#1d4ed8]/40 hover:border-[#38bdf8]/60 transition-all flex flex-col">
+              <div className="relative aspect-[16/9] bg-[#040b19] overflow-hidden">
+                <img
+                  src="/assets/aistudio/IMG-20261031-WA0094_c444fb16.jpg"
+                  alt="Commercial & Industrial Facilities"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1e42] via-transparent to-transparent" />
+              </div>
+              <div className="p-7 pt-4 space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#07132b] border border-[#38bdf8]/40 flex items-center justify-center text-[#38bdf8]">
+                  <Factory className="w-5 h-5" />
+                </div>
+                <h4 className="font-display text-xl font-bold text-white">Commercial &amp; Industrial Facilities</h4>
+                <p className="text-xs text-[#bfdbfe] leading-relaxed">
+                  Heavy industrial warehouse construction, commercial shopping plazas, agro-processing factory setups, and expressway logistics depots with reinforced foundation beds.
+                </p>
+                <div className="text-[11px] text-[#38bdf8] font-semibold pt-1">
+                  Heavy Load Capacities &amp; Structural Steel &rarr;
+                </div>
               </div>
             </div>
           </div>

@@ -313,23 +313,34 @@ export default function App() {
                 {/* Portal Card 1: About Us */}
                 <div
                   onClick={() => navigateTo('about')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl p-7 transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] font-semibold tracking-widest uppercase text-[#38bdf8] bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md">
-                        Since 2006 · CAC BN: 3189204
-                      </span>
-                      <Award className="w-5 h-5 text-[#38bdf8] group-hover:scale-110 transition-transform" />
+                    <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
+                      <img
+                        src="/assets/aistudio/910713664_1455940486721545_188622865862031933_n_c003821d.jpg"
+                        alt="Ola Continental Corporate Headquarters Building"
+                        loading="lazy"
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#222630] via-transparent to-black/25" />
                     </div>
-                    <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-3">
-                      About Us
-                    </h3>
-                    <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
-                      Discover our 19-year legacy under Engineer Samuel Aleji, established in 2006. Learn about his civil engineering discipline, 180+ completed homes, 45+ student hostels, and executive leadership.
-                    </p>
+                    <div className="p-7 pt-5">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-[10px] font-semibold tracking-widest uppercase text-[#38bdf8] bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md">
+                          Since 2006 · CAC BN: 3189204
+                        </span>
+                        <Award className="w-5 h-5 text-[#38bdf8] group-hover:scale-110 transition-transform" />
+                      </div>
+                      <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-3">
+                        About Us
+                      </h3>
+                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
+                        Discover our 19-year legacy under Engineer Samuel Aleji, established in 2006. Learn about his civil engineering discipline, 180+ completed homes, 45+ student hostels, and executive leadership.
+                      </p>
+                    </div>
                   </div>
-                  <div className="pt-6 mt-6 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#38bdf8] group-hover:text-white transition-colors">
+                  <div className="px-7 pb-7 pt-5 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#38bdf8] group-hover:text-white transition-colors">
                     <span>Read About Us &amp; Our 19-Year Story</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -338,23 +349,34 @@ export default function App() {
                 {/* Portal Card 2: Constructions (Ongoing & Finished Properties) */}
                 <div
                   onClick={() => navigateTo('constructions')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl p-7 transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] font-semibold tracking-widest uppercase text-[#4ade80] bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md">
-                        Ongoing &amp; Finished Works
-                      </span>
-                      <HardHat className="w-5 h-5 text-[#4ade80] group-hover:scale-110 transition-transform" />
+                    <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
+                      <img
+                        src="/assets/aistudio/Real_Estate_flyer_design_background_a74e8250.jpg"
+                        alt="Finished Contemporary Luxury Duplex by Ola Continental"
+                        loading="lazy"
+                        className="w-full h-full object-cover object-[50%_60%] group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#222630] via-transparent to-black/25" />
                     </div>
-                    <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-3">
-                      Constructions &amp; Finished Properties
-                    </h3>
-                    <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
-                      Inspect active building sites currently worked on alongside completed turnkey duplexes, student hostels, industrial weighbridges, and corporate estates.
-                    </p>
+                    <div className="p-7 pt-5">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-[10px] font-semibold tracking-widest uppercase text-[#4ade80] bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md">
+                          Ongoing &amp; Finished Works
+                        </span>
+                        <HardHat className="w-5 h-5 text-[#4ade80] group-hover:scale-110 transition-transform" />
+                      </div>
+                      <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-3">
+                        Constructions &amp; Finished Properties
+                      </h3>
+                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
+                        Inspect active building sites currently worked on alongside completed turnkey duplexes, student hostels, industrial weighbridges, and corporate estates.
+                      </p>
+                    </div>
                   </div>
-                  <div className="pt-6 mt-6 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#4ade80] group-hover:text-white transition-colors">
+                  <div className="px-7 pb-7 pt-5 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#4ade80] group-hover:text-white transition-colors">
                     <span>Open Constructions Portfolio</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -363,23 +385,34 @@ export default function App() {
                 {/* Portal Card 3: Verified Properties Repository */}
                 <div
                   onClick={() => navigateTo('properties')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl p-7 transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] font-semibold tracking-widest uppercase text-[#38bdf8] bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md">
-                        15+ Verified Listings
-                      </span>
-                      <Building2 className="w-5 h-5 text-[#38bdf8] group-hover:scale-110 transition-transform" />
+                    <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
+                      <img
+                        src="/assets/aistudio/907264287466848862_5d01df1c.jpg"
+                        alt="Modern Executive Residence — Verified Properties Repository"
+                        loading="lazy"
+                        className="w-full h-full object-cover object-[50%_65%] group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#222630] via-transparent to-black/25" />
                     </div>
-                    <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-3">
-                      Verified Properties Repository
-                    </h3>
-                    <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
-                      Explore active student hostels, modern bungalows, executive duplexes, commercial land, and fertile farms across Ogbomoso and Lagos corridors with live GPS beacon coordinates.
-                    </p>
+                    <div className="p-7 pt-5">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-[10px] font-semibold tracking-widest uppercase text-[#38bdf8] bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md">
+                          15+ Verified Listings
+                        </span>
+                        <Building2 className="w-5 h-5 text-[#38bdf8] group-hover:scale-110 transition-transform" />
+                      </div>
+                      <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-3">
+                        Verified Properties Repository
+                      </h3>
+                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
+                        Explore active student hostels, modern bungalows, executive duplexes, commercial land, and fertile farms across Ogbomoso and Lagos corridors with live GPS beacon coordinates.
+                      </p>
+                    </div>
                   </div>
-                  <div className="pt-6 mt-6 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#38bdf8] group-hover:text-white transition-colors">
+                  <div className="px-7 pb-7 pt-5 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#38bdf8] group-hover:text-white transition-colors">
                     <span>Open Properties Page</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -388,23 +421,34 @@ export default function App() {
                 {/* Portal Card 4: Operating Corridors & Zones */}
                 <div
                   onClick={() => navigateTo('corridors')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl p-7 transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] font-semibold tracking-widest uppercase text-slate-300 bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md">
-                        Ogbomoso & Lagos
-                      </span>
-                      <MapPin className="w-5 h-5 text-[#38bdf8] group-hover:scale-110 transition-transform" />
+                    <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
+                      <img
+                        src="/assets/aistudio/IMG-20261031-WA0097_f6d3f6dd.jpg"
+                        alt="Operating Corridors in Ogbomoso and Lagos"
+                        loading="lazy"
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#222630] via-transparent to-black/25" />
                     </div>
-                    <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-3">
-                      Operating Corridors & Zones
-                    </h3>
-                    <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
-                      Strategic geospatial zoning across LAUTECH Hospital quarters, Under-G student rentals, Adenike, Aroje Industrial Highway, Takie, and Mushin Commercial District.
-                    </p>
+                    <div className="p-7 pt-5">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-[10px] font-semibold tracking-widest uppercase text-slate-300 bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md">
+                          Ogbomoso &amp; Lagos
+                        </span>
+                        <MapPin className="w-5 h-5 text-[#38bdf8] group-hover:scale-110 transition-transform" />
+                      </div>
+                      <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-3">
+                        Operating Corridors &amp; Zones
+                      </h3>
+                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
+                        Strategic geospatial zoning across LAUTECH Hospital quarters, Under-G student rentals, Adenike, Aroje Industrial Highway, Takie, and Mushin Commercial District.
+                      </p>
+                    </div>
                   </div>
-                  <div className="pt-6 mt-6 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#38bdf8] group-hover:text-white transition-colors">
+                  <div className="px-7 pb-7 pt-5 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#38bdf8] group-hover:text-white transition-colors">
                     <span>Explore Corridors</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -413,23 +457,34 @@ export default function App() {
                 {/* Portal Card 5: Client Sign Up & Ask Ola AI Access */}
                 <div
                   onClick={() => navigateTo('customer-login')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#F5C451]/60 rounded-2xl p-7 transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#F5C451]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] font-semibold tracking-widest uppercase text-[#F5C451] bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md">
-                        Nigeria &amp; Diaspora Access
-                      </span>
-                      <UserCheck className="w-5 h-5 text-[#F5C451] group-hover:scale-110 transition-transform" />
+                    <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
+                      <img
+                        src="/assets/aistudio/907264287466848862_5d01df1c.jpg"
+                        alt="Client Property Consultation & Ask Ola AI Portal"
+                        loading="lazy"
+                        className="w-full h-full object-cover object-[50%_65%] group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#222630] via-transparent to-black/25" />
                     </div>
-                    <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#F5C451] transition-colors mb-3">
-                      Customer Sign Up &amp; Ask Ola AI
-                    </h3>
-                    <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
-                      Register with your Full Name, Phone, Email, and WhatsApp Number to unlock personalized Ola AI real estate and construction guidance across Nigeria and abroad.
-                    </p>
+                    <div className="p-7 pt-5">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-[10px] font-semibold tracking-widest uppercase text-[#F5C451] bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md">
+                          Nigeria &amp; Diaspora Access
+                        </span>
+                        <UserCheck className="w-5 h-5 text-[#F5C451] group-hover:scale-110 transition-transform" />
+                      </div>
+                      <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#F5C451] transition-colors mb-3">
+                        Customer Sign Up &amp; Ask Ola AI
+                      </h3>
+                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
+                        Register with your Full Name, Phone, Email, and WhatsApp Number to unlock personalized Ola AI real estate and construction guidance across Nigeria and abroad.
+                      </p>
+                    </div>
                   </div>
-                  <div className="pt-6 mt-6 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#F5C451] group-hover:text-white transition-colors">
+                  <div className="px-7 pb-7 pt-5 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#F5C451] group-hover:text-white transition-colors">
                     <span>Sign Up or Access Portal</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -438,24 +493,35 @@ export default function App() {
                 {/* Portal Card 6: Real Estate & Civil Engineering Blogs */}
                 <div
                   onClick={() => navigateTo('blogs')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl p-7 transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] font-semibold tracking-widest uppercase text-[#38bdf8] bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md flex items-center gap-1.5">
-                        <BookOpen className="w-3.5 h-3.5 text-[#38bdf8]" />
-                        <span>Field Journal</span>
-                      </span>
-                      <span className="text-[10px] text-slate-400 font-mono">Articles</span>
+                    <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
+                      <img
+                        src="/assets/aistudio/IMG-20261031-WA0089_fc7755dc.jpg"
+                        alt="Real Estate & Civil Engineering Field Journal"
+                        loading="lazy"
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#222630] via-transparent to-black/25" />
                     </div>
-                    <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-3">
-                      Real Estate &amp; Construction Blogs
-                    </h3>
-                    <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
-                      Technical guides written by Engineer Samuel Aleji covering Oyo State cadastral charting, LAUTECH student hostel ROI, BS 8110 structural standards, and remote diaspora building protocols.
-                    </p>
+                    <div className="p-7 pt-5">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-[10px] font-semibold tracking-widest uppercase text-[#38bdf8] bg-[#181a20]/80 border border-slate-700 px-2.5 py-1 rounded-md flex items-center gap-1.5">
+                          <BookOpen className="w-3.5 h-3.5 text-[#38bdf8]" />
+                          <span>Field Journal</span>
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-mono">Articles</span>
+                      </div>
+                      <h3 className="font-display text-2xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-3">
+                        Real Estate &amp; Construction Blogs
+                      </h3>
+                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">
+                        Technical guides written by Engineer Samuel Aleji covering Oyo State cadastral charting, LAUTECH student hostel ROI, BS 8110 structural standards, and remote diaspora building protocols.
+                      </p>
+                    </div>
                   </div>
-                  <div className="pt-6 mt-6 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#38bdf8] group-hover:text-white transition-colors">
+                  <div className="px-7 pb-7 pt-5 border-t border-slate-700/60 flex items-center justify-between text-xs font-semibold text-[#38bdf8] group-hover:text-white transition-colors">
                     <span>Read Editorial Blogs</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
