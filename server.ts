@@ -1462,6 +1462,7 @@ const EXCLUDED_ZIP_PATHS = new Set([
   'public/assets/aistudio/119290-717347154_medium_e5c6947a.mp4',
   'public/assets/aistudio/IMG-20261021-WA0023_f5b1e92c.jpg',
   'public/assets/aistudio/230_9b05a5c0.PNG',
+  'public/assets/aistudio/5657_ace46a38.PNG',
 ]);
 
 function shouldExcludeFromZip(relPosixPath: string, excludeTopDirs: Set<string>, excludePaths: Set<string>): boolean {
@@ -1496,12 +1497,62 @@ function toDosDateTime(date: Date): { dosTime: number; dosDate: number } {
 function buildZipBufferFromDir(
   rootDir: string,
   excludeTopDirs: Set<string>,
-  excludePaths: Set<string>
+  excludePaths: Set<string>,
+  rootPrefix = ''
 ): { buffer: Buffer; fileCount: number } {
   const localParts: Buffer[] = [];
   const centralParts: Buffer[] = [];
   let offset = 0;
   let fileCount = 0;
+  let entryCount = 0;
+
+  const appendDirEntry = (dirPosix: string, mtime: Date) => {
+    const entryName = dirPosix.endsWith('/') ? dirPosix : `${dirPosix}/`;
+    const { dosTime, dosDate } = toDosDateTime(mtime);
+    const nameBuf = Buffer.from(entryName, 'utf8');
+    const unixDirAttrs = ((0o040755 << 16) | 0x10) >>> 0;
+
+    const localHeader = Buffer.alloc(30);
+    localHeader.writeUInt32LE(0x04034b50, 0);
+    localHeader.writeUInt16LE(20, 4);
+    localHeader.writeUInt16LE(0x0800, 6);
+    localHeader.writeUInt16LE(0, 8);
+    localHeader.writeUInt16LE(dosTime, 10);
+    localHeader.writeUInt16LE(dosDate, 12);
+    localHeader.writeUInt32LE(0, 14);
+    localHeader.writeUInt32LE(0, 18);
+    localHeader.writeUInt32LE(0, 22);
+    localHeader.writeUInt16LE(nameBuf.length, 26);
+    localHeader.writeUInt16LE(0, 28);
+
+    const centralHeader = Buffer.alloc(46);
+    centralHeader.writeUInt32LE(0x02014b50, 0);
+    centralHeader.writeUInt16LE((3 << 8) | 20, 4);
+    centralHeader.writeUInt16LE(20, 6);
+    centralHeader.writeUInt16LE(0x0800, 8);
+    centralHeader.writeUInt16LE(0, 10);
+    centralHeader.writeUInt16LE(dosTime, 12);
+    centralHeader.writeUInt16LE(dosDate, 14);
+    centralHeader.writeUInt32LE(0, 16);
+    centralHeader.writeUInt32LE(0, 20);
+    centralHeader.writeUInt32LE(0, 24);
+    centralHeader.writeUInt16LE(nameBuf.length, 28);
+    centralHeader.writeUInt16LE(0, 30);
+    centralHeader.writeUInt16LE(0, 32);
+    centralHeader.writeUInt16LE(0, 34);
+    centralHeader.writeUInt16LE(0, 36);
+    centralHeader.writeUInt32LE(unixDirAttrs, 38);
+    centralHeader.writeUInt32LE(offset, 42);
+
+    localParts.push(localHeader, nameBuf);
+    centralParts.push(centralHeader, nameBuf);
+    offset += localHeader.length + nameBuf.length;
+    entryCount += 1;
+  };
+
+  if (rootPrefix) {
+    appendDirEntry(rootPrefix.replace(/\/+$/, ''), new Date());
+  }
 
   const walk = (currentDir: string, relDir: string) => {
     const dirEntries = fs.readdirSync(currentDir, { withFileTypes: true });
@@ -1512,8 +1563,14 @@ function buildZipBufferFromDir(
       const relPosix = relDir ? `${relDir}/${entry.name}` : entry.name;
       if (shouldExcludeFromZip(relPosix, excludeTopDirs, excludePaths)) continue;
 
+      const zipEntryPath = rootPrefix
+        ? `${rootPrefix.replace(/\/+$/, '')}/${relPosix}`
+        : relPosix;
+
       const fullPath = path.join(currentDir, entry.name);
       if (entry.isDirectory()) {
+        const dirStat = fs.statSync(fullPath);
+        appendDirEntry(zipEntryPath, dirStat.mtime);
         walk(fullPath, relPosix);
         continue;
       }
@@ -1527,7 +1584,8 @@ function buildZipBufferFromDir(
       const method = useDeflate ? 8 : 0;
       const crc = zlib.crc32(rawData) >>> 0;
       const { dosTime, dosDate } = toDosDateTime(stat.mtime);
-      const nameBuf = Buffer.from(relPosix, 'utf8');
+      const nameBuf = Buffer.from(zipEntryPath, 'utf8');
+      const unixFileAttrs = ((0o100644 << 16) | 0x20) >>> 0;
 
       // Local File Header (30 bytes + filename)
       const localHeader = Buffer.alloc(30);
@@ -1546,7 +1604,7 @@ function buildZipBufferFromDir(
       // Central Directory Header (46 bytes + filename)
       const centralHeader = Buffer.alloc(46);
       centralHeader.writeUInt32LE(0x02014b50, 0);
-      centralHeader.writeUInt16LE(20, 4);
+      centralHeader.writeUInt16LE((3 << 8) | 20, 4);
       centralHeader.writeUInt16LE(20, 6);
       centralHeader.writeUInt16LE(0x0800, 8);
       centralHeader.writeUInt16LE(method, 10);
@@ -1560,7 +1618,7 @@ function buildZipBufferFromDir(
       centralHeader.writeUInt16LE(0, 32);
       centralHeader.writeUInt16LE(0, 34);
       centralHeader.writeUInt16LE(0, 36);
-      centralHeader.writeUInt32LE(0, 38);
+      centralHeader.writeUInt32LE(unixFileAttrs, 38);
       centralHeader.writeUInt32LE(offset, 42);
 
       localParts.push(localHeader, nameBuf, payload);
@@ -1568,6 +1626,7 @@ function buildZipBufferFromDir(
 
       offset += localHeader.length + nameBuf.length + payload.length;
       fileCount += 1;
+      entryCount += 1;
     }
   };
 
@@ -1578,8 +1637,8 @@ function buildZipBufferFromDir(
   eocd.writeUInt32LE(0x06054b50, 0);
   eocd.writeUInt16LE(0, 4);
   eocd.writeUInt16LE(0, 6);
-  eocd.writeUInt16LE(fileCount & 0xffff, 8);
-  eocd.writeUInt16LE(fileCount & 0xffff, 10);
+  eocd.writeUInt16LE(entryCount & 0xffff, 8);
+  eocd.writeUInt16LE(entryCount & 0xffff, 10);
   eocd.writeUInt32LE(centralBuffer.length, 12);
   eocd.writeUInt32LE(offset, 16);
   eocd.writeUInt16LE(0, 20);
@@ -1589,6 +1648,36 @@ function buildZipBufferFromDir(
     fileCount,
   };
 }
+
+let pendingDistBuild: Promise<void> | null = null;
+async function ensureDistBuilt(): Promise<string> {
+  const distDir = path.resolve(__dirname, 'dist');
+  if (fs.existsSync(path.join(distDir, 'index.html'))) {
+    return distDir;
+  }
+  if (!pendingDistBuild) {
+    pendingDistBuild = (async () => {
+      try {
+        const { build } = await import('vite');
+        await build({
+          root: __dirname,
+          logLevel: 'silent',
+        });
+      } finally {
+        pendingDistBuild = null;
+      }
+    })();
+  }
+  await pendingDistBuild;
+  return distDir;
+}
+
+const EXCLUDED_DIST_ZIP_PATHS = new Set([
+  'assets/aistudio/119290-717347154_medium_e5c6947a.mp4',
+  'assets/aistudio/IMG-20261021-WA0023_f5b1e92c.jpg',
+  'assets/aistudio/230_9b05a5c0.PNG',
+  'assets/aistudio/5657_ace46a38.PNG',
+]);
 
 app.get('/api/download/full-project.zip', (_req, res) => {
   try {
@@ -1604,19 +1693,11 @@ app.get('/api/download/full-project.zip', (_req, res) => {
   }
 });
 
-// Built production static website backup ZIP (dist/ at ZIP root — compatible with Hostinger "Upload your website backups")
-app.get('/api/download/website-backup.zip', (_req, res) => {
+// Built production static website backup ZIP (dist/ at ZIP root — upload & extract inside Hostinger File Manager -> public_html)
+app.get('/api/download/website-backup.zip', async (_req, res) => {
   try {
-    const distDir = path.resolve(__dirname, 'dist');
-    if (!fs.existsSync(path.join(distDir, 'index.html'))) {
-      return res.status(404).json({ error: 'Built website dist/ folder not found. Run npm run build first.' });
-    }
-    const excludedDistPaths = new Set([
-      'assets/aistudio/119290-717347154_medium_e5c6947a.mp4',
-      'assets/aistudio/IMG-20261021-WA0023_f5b1e92c.jpg',
-      'assets/aistudio/230_9b05a5c0.PNG',
-    ]);
-    const { buffer } = buildZipBufferFromDir(distDir, new Set(), excludedDistPaths);
+    const distDir = await ensureDistBuilt();
+    const { buffer } = buildZipBufferFromDir(distDir, new Set(), EXCLUDED_DIST_ZIP_PATHS);
     res.setHeader('Content-Type', 'application/zip');
     res.setHeader('Content-Disposition', 'attachment; filename="ola-continental-website-backup.zip"');
     res.setHeader('Content-Length', String(buffer.length));
@@ -1625,6 +1706,22 @@ app.get('/api/download/website-backup.zip', (_req, res) => {
   } catch (err) {
     console.error('Error building website backup zip:', err);
     res.status(500).json({ error: 'Failed to generate website backup ZIP archive' });
+  }
+});
+
+// Built production static website wrapped inside public_html/ for backup tools expecting public_html at root
+app.get('/api/download/hostinger-backup.zip', async (_req, res) => {
+  try {
+    const distDir = await ensureDistBuilt();
+    const { buffer } = buildZipBufferFromDir(distDir, new Set(), EXCLUDED_DIST_ZIP_PATHS, 'public_html');
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', 'attachment; filename="ola-continental-hostinger-public-html.zip"');
+    res.setHeader('Content-Length', String(buffer.length));
+    res.setHeader('Cache-Control', 'no-store');
+    res.send(buffer);
+  } catch (err) {
+    console.error('Error building Hostinger public_html backup zip:', err);
+    res.status(500).json({ error: 'Failed to generate Hostinger backup ZIP archive' });
   }
 });
 

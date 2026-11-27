@@ -159,7 +159,7 @@ export const VideoHero: React.FC<VideoHeroProps> = ({
   };
 
   return (
-    <section className="relative bg-[#181a20] overflow-hidden border-b border-slate-700/60">
+    <section className="relative bg-transparent overflow-hidden border-b border-slate-500/30">
       {/* Subtle Logo-Inspired Ambient Glows (Crimson Red & Royal Navy) */}
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#b91c1c]/12 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 right-0 w-96 h-96 bg-[#1d4ed8]/12 rounded-full blur-3xl pointer-events-none" />
@@ -169,7 +169,7 @@ export const VideoHero: React.FC<VideoHeroProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
           {/* LEFT-HAND SIDE: Editorial Copy Styled with the OLA Continental Logo Design Concept */}
           <div className="lg:col-span-6 order-1 flex flex-col">
-            <div className="flex-1 bg-[#222630] border border-slate-700/80 rounded-2xl overflow-hidden shadow-2xl flex flex-col justify-between">
+            <div className="flex-1 bg-[#1b202c]/88 backdrop-blur-md border border-slate-600/60 rounded-2xl overflow-hidden shadow-2xl flex flex-col justify-between">
               {/* Top Crimson-Red & Royal-Navy Logo Accent Bar */}
               <div className="h-2 w-full flex">
                 <div className="w-1/2 bg-[#b91c1c]" />

@@ -135,7 +135,7 @@ export const BlogsSection: React.FC<BlogsSectionProps> = ({
       id="blogs-section"
       className={`py-16 relative overflow-hidden ${
         isHomePreview
-          ? 'bg-[#181a20] text-slate-100 border-t border-slate-700/60'
+          ? 'bg-[#0b1322]/70 backdrop-blur-xs text-slate-100 border-t border-slate-600/50'
           : 'bg-[#07132b] text-[#f0f9ff] min-h-[85vh]'
       }`}
     >

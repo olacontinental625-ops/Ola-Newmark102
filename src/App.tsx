@@ -268,17 +268,28 @@ export default function App() {
             directly to that specific section as an independent page.
            ========================================================================= */}
         {currentPage === 'home' && (
-          <div className="bg-[#181a20]">
-            {/* Split Hero: Text with Logo Design Concept on Left, Uploadable Video on Right */}
-            <VideoHero
-              onExploreProperties={() => navigateTo('properties')}
-              onOpenConstructions={() => navigateTo('constructions')}
-              onOpenChat={() => setIsChatOpen(true)}
-              onOpenViewing={() => handleBookViewing(null)}
-            />
+          <div className="relative bg-[#0b1322] min-h-screen">
+            {/* Full-Bleed Homepage Twilight Villa Background */}
+            <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+              <img
+                src="/assets/aistudio/file_00000000dd1481f4b6f48f8b6a40b7da_b23c6bf0.png"
+                alt=""
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#09101f]/65 via-[#0e1729]/72 to-[#09101f]/88" />
+            </div>
 
-            {/* Homepage Department Showcase Portals in Architectural Grey */}
-            <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative z-10">
+              {/* Split Hero: Text with Logo Design Concept on Left, Uploadable Video on Right */}
+              <VideoHero
+                onExploreProperties={() => navigateTo('properties')}
+                onOpenConstructions={() => navigateTo('constructions')}
+                onOpenChat={() => setIsChatOpen(true)}
+                onOpenViewing={() => handleBookViewing(null)}
+              />
+
+              {/* Homepage Department Showcase Portals over Twilight Background */}
+              <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                 <div className="max-w-3xl">
                   <div className="mb-4">
@@ -313,7 +324,7 @@ export default function App() {
                 {/* Portal Card 1: About Us */}
                 <div
                   onClick={() => navigateTo('about')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#1b202c]/88 backdrop-blur-md border border-slate-600/60 hover:border-[#38bdf8]/70 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/60 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
                     <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
@@ -349,7 +360,7 @@ export default function App() {
                 {/* Portal Card 2: Constructions (Ongoing & Finished Properties) */}
                 <div
                   onClick={() => navigateTo('constructions')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#1b202c]/88 backdrop-blur-md border border-slate-600/60 hover:border-[#38bdf8]/70 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/60 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
                     <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
@@ -385,7 +396,7 @@ export default function App() {
                 {/* Portal Card 3: Verified Properties Repository */}
                 <div
                   onClick={() => navigateTo('properties')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#1b202c]/88 backdrop-blur-md border border-slate-600/60 hover:border-[#38bdf8]/70 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/60 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
                     <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
@@ -421,7 +432,7 @@ export default function App() {
                 {/* Portal Card 4: Operating Corridors & Zones */}
                 <div
                   onClick={() => navigateTo('corridors')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#1b202c]/88 backdrop-blur-md border border-slate-600/60 hover:border-[#38bdf8]/70 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/60 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
                     <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
@@ -457,7 +468,7 @@ export default function App() {
                 {/* Portal Card 5: Client Sign Up & Ask Ola AI Access */}
                 <div
                   onClick={() => navigateTo('customer-login')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#F5C451]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#1b202c]/88 backdrop-blur-md border border-slate-600/60 hover:border-[#F5C451]/70 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/60 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
                     <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
@@ -493,7 +504,7 @@ export default function App() {
                 {/* Portal Card 6: Real Estate & Civil Engineering Blogs */}
                 <div
                   onClick={() => navigateTo('blogs')}
-                  className="group bg-[#222630] border border-slate-700/70 hover:border-[#38bdf8]/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/40 cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#1b202c]/88 backdrop-blur-md border border-slate-600/60 hover:border-[#38bdf8]/70 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-950/60 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
                     <div className="relative aspect-[16/9] bg-[#181a20] overflow-hidden">
@@ -528,8 +539,8 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Quick Inquiry Callout Strip in Architectural Grey */}
-              <div className="mt-14 bg-[#222630] border border-slate-700/70 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+              {/* Quick Inquiry Callout Strip over Twilight Background */}
+              <div className="mt-14 bg-[#1b202c]/88 backdrop-blur-md border border-slate-600/60 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
                 <div className="space-y-1.5 text-center md:text-left">
                   <div className="text-xs font-semibold uppercase tracking-wider text-[#38bdf8] flex items-center gap-2 justify-center md:justify-start">
                     <HardHat className="w-4 h-4 text-[#4ade80]" />
@@ -570,14 +581,15 @@ export default function App() {
               </div>
             </section>
 
-            {/* Dedicated Homepage Blog Section */}
-            <BlogsSection
-              variant="homepage"
-              onOpenViewing={() => handleBookViewing(null)}
-              onOpenChat={() => setIsChatOpen(true)}
-              onNavigateProperties={() => navigateTo('properties')}
-              onViewAllBlogs={() => navigateTo('blogs')}
-            />
+              {/* Dedicated Homepage Blog Section */}
+              <BlogsSection
+                variant="homepage"
+                onOpenViewing={() => handleBookViewing(null)}
+                onOpenChat={() => setIsChatOpen(true)}
+                onNavigateProperties={() => navigateTo('properties')}
+                onViewAllBlogs={() => navigateTo('blogs')}
+              />
+            </div>
           </div>
         )}
 
